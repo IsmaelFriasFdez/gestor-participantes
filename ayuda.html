@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda del gestor de participantes</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/ayuda.js" defer></script>
+</head>
+<body>
+  <header class="cabecera">
+    <h1>Ayuda</h1>
+    <p>Cómo usar el gestor de participantes</p>
+  </header>
+
+  <main class="contenido contenido-ayuda">
+    <section class="bloque bloque-ancho">
+      <h2>Uso de la aplicación</h2>
+      <ol>
+        <li><strong>Alta:</strong> rellena nombre (2 a 60 caracteres), edad entera de 0 a 120, tipo,
+          modalidad y experiencia de 0 a 10 (los decimales se escriben con punto, por ejemplo 7.5).
+          Pulsa «Dar de alta». Si hay errores se muestran junto a cada campo y en un resumen.</li>
+        <li><strong>Listado:</strong> cada participante aparece en una tarjeta con sus datos, si es menor
+          o mayor de edad y su nivel de experiencia (inicial, intermedia o avanzada).</li>
+        <li><strong>Baja:</strong> pulsa «Borrar» en la tarjeta y confirma. Si cancelas no cambia nada.</li>
+        <li><strong>Búsqueda y filtro:</strong> escribe parte del nombre (da igual mayúsculas o minúsculas)
+          y elige una modalidad. Ambos se combinan.</li>
+        <li><strong>Estadísticas:</strong> se calculan siempre con todos los participantes.</li>
+        <li><strong>JSON:</strong> «Exportar» escribe la colección en el área de texto. «Importar» la
+          sustituye solo si todos los datos son válidos.</li>
+        <li><strong>Panel del evento:</strong> muestra el total, las modalidades y la última inscripción.</li>
+        <li><strong>Preferencias:</strong> elige tema y tamaño de letra y pulsa «Guardar». Se intentan
+          conservar 30 días mediante cookies. «Restablecer» las elimina.</li>
+      </ol>
+    </section>
+
+    <section class="bloque bloque-ancho">
+      <h2>Datos de tu navegador</h2>
+      <p class="nota">Información solo descriptiva: no se usa para validar ni para decisiones de seguridad.</p>
+      <dl id="datos-navegador" class="datos-estadisticas"></dl>
+      <button id="boton-cerrar" type="button">Cerrar esta ventana</button>
+    </section>
+  </main>
+</body>
+</html>

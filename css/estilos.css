@@ -1,0 +1,181 @@
+/* =====================================================================
+   estilos.css — presentación de la página principal y de la ayuda
+   ===================================================================== */
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1f2328;
+  background: #f4f6f8;
+}
+
+/* Preferencias aplicadas desde JavaScript con classList.toggle */
+body.letra-grande { font-size: 1.25rem; }
+body.tema-oscuro { color: #e8eaed; background: #16181c; }
+
+.cabecera {
+  padding: 1.2em 1.5em;
+  background: #1d4ed8;
+  color: #ffffff;
+}
+.cabecera h1 { margin: 0; font-size: 1.8em; }
+.cabecera p { margin: 0.2em 0 0; }
+
+.contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  gap: 1.2em;
+  padding: 1.2em;
+  max-width: 80em;
+  margin: 0 auto;
+}
+
+.bloque {
+  background: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 0.5em;
+  padding: 1em 1.2em;
+}
+.bloque-ancho { grid-column: 1 / -1; }
+body.tema-oscuro .bloque { background: #22262c; border-color: #3a4048; }
+
+h2 { margin-top: 0; font-size: 1.3em; }
+
+/* ---------- Formularios ---------- */
+.campo { margin-bottom: 0.8em; }
+label { display: block; font-weight: 600; margin-bottom: 0.2em; }
+
+input, select, textarea, button { font: inherit; }
+
+input, select, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4em 0.5em;
+  border: 1px solid #8c959f;
+  border-radius: 0.3em;
+  background: #ffffff;
+  color: #1f2328;
+}
+body.tema-oscuro input,
+body.tema-oscuro select,
+body.tema-oscuro textarea { background: #16181c; color: #e8eaed; border-color: #5c6570; }
+
+textarea { font-family: ui-monospace, monospace; font-size: 0.9em; }
+
+input[aria-invalid="true"],
+select[aria-invalid="true"] { border: 2px solid #b42318; }
+
+button {
+  padding: 0.45em 1em;
+  border: none;
+  border-radius: 0.3em;
+  background: #1d4ed8;
+  color: #ffffff;
+  cursor: pointer;
+}
+button:hover { background: #1e40af; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+.botones { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 0.6em; }
+
+.error-campo { margin: 0.2em 0 0; color: #b42318; font-size: 0.9em; min-height: 1.2em; }
+body.tema-oscuro .error-campo { color: #ff8a80; }
+
+.resumen-errores {
+  border: 2px solid #b42318;
+  background: #fdecea;
+  color: #7a1a12;
+  border-radius: 0.4em;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+}
+.resumen-errores p { margin: 0; font-weight: 600; }
+.oculto { display: none; }
+
+.mensaje { min-height: 1.5em; font-weight: 600; }
+.mensaje.error { color: #b42318; }
+body.tema-oscuro .mensaje.error { color: #ff8a80; }
+
+.nota { font-size: 0.9em; color: #57606a; }
+body.tema-oscuro .nota { color: #a8b1bb; }
+
+/* ---------- Listado ---------- */
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  gap: 1em;
+}
+
+.lista-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
+  gap: 1em;
+}
+
+.tarjeta {
+  border: 1px solid #d0d7de;
+  border-left-width: 0.5em;
+  border-radius: 0.4em;
+  padding: 0.8em 1em;
+  background: #fbfcfd;
+}
+body.tema-oscuro .tarjeta { background: #1b1e23; border-color: #3a4048; }
+
+/* El estado menor/mayor se representa con la clase de la tarjeta */
+.tarjeta.menor { border-left-color: #c2410c; }
+.tarjeta.mayor { border-left-color: #15803d; }
+
+.tarjeta h3 { margin: 0 0 0.3em; font-size: 1.15em; }
+.tarjeta dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.1em 0.8em;
+  margin: 0.5em 0;
+}
+.tarjeta dt { font-weight: 600; }
+.tarjeta dd { margin: 0; }
+
+.etiquetas { display: flex; flex-wrap: wrap; gap: 0.4em; margin: 0; }
+.etiqueta {
+  display: inline-block;
+  padding: 0.1em 0.6em;
+  border-radius: 1em;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+.etiqueta-menor { background: #ffedd5; color: #7c2d12; }
+.etiqueta-mayor { background: #dcfce7; color: #14532d; }
+.etiqueta-inicial { background: #e0f2fe; color: #0c4a6e; }
+.etiqueta-intermedia { background: #ede9fe; color: #4c1d95; }
+.etiqueta-avanzada { background: #fef9c3; color: #713f12; }
+
+.boton-borrar { background: #b42318; }
+.boton-borrar:hover { background: #8f1c13; }
+
+/* ---------- Estadísticas ---------- */
+.datos-estadisticas {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25em 1em;
+}
+.datos-estadisticas dt { font-weight: 600; }
+.datos-estadisticas dd { margin: 0; text-align: right; }
+
+/* ---------- Panel ---------- */
+.marco-panel {
+  width: 100%;
+  min-height: 15em;
+  border: 1px solid #d0d7de;
+  border-radius: 0.4em;
+  background: #ffffff;
+}
+
+/* ---------- Ayuda ---------- */
+.contenido-ayuda { grid-template-columns: 1fr; max-width: 50em; }
+.contenido-ayuda li { margin-bottom: 0.5em; }
+.contenido-ayuda .datos-estadisticas dd { text-align: left; }

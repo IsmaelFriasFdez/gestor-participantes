@@ -1,0 +1,31 @@
+/* panel.css — estilos del documento incrustado en el iframe */
+
+body {
+  margin: 0;
+  padding: 0.8em 1em;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: #1f2328;
+  background: #ffffff;
+}
+
+h1 { margin: 0 0 0.5em; font-size: 1.1em; color: #1d4ed8; }
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3em 1em;
+  margin: 0;
+}
+dt { font-weight: 600; }
+dd { margin: 0; }
+
+.vacio {
+  margin: 0;
+  padding: 0.6em;
+  border: 1px dashed #8c959f;
+  border-radius: 0.4em;
+  text-align: center;
+  font-weight: 600;
+  color: #57606a;
+}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de participantes del evento</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <!-- defer: se descargan en paralelo y se ejecutan en orden cuando el DOM ya existe -->
+  <script src="js/logica.js" defer></script>
+  <script src="js/cookies.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="cabecera">
+    <h1>Gestor de participantes</h1>
+    <p>Inscripciones del evento tecnológico</p>
+  </header>
+
+  <main class="contenido">
+
+    <!-- ========== ALTA ========== -->
+    <section class="bloque" aria-labelledby="titulo-alta">
+      <h2 id="titulo-alta">Alta de participante</h2>
+
+      <div id="resumen-errores" class="resumen-errores oculto" role="alert">
+        <p>Revisa los siguientes datos:</p>
+        <ul id="lista-errores"></ul>
+      </div>
+
+      <form id="form-alta" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="name"
+                 aria-describedby="error-nombre">
+          <p id="error-nombre" class="error-campo" aria-live="polite"></p>
+        </div>
+
+        <div class="campo">
+          <label for="edad">Edad (años, 0 a 120)</label>
+          <input id="edad" name="edad" type="text" inputmode="numeric" aria-describedby="error-edad">
+          <p id="error-edad" class="error-campo" aria-live="polite"></p>
+        </div>
+
+        <div class="campo">
+          <label for="tipo">Tipo</label>
+          <select id="tipo" name="tipo" aria-describedby="error-tipo">
+            <option value="">Elige un tipo</option>
+            <option value="estudiante">Estudiante</option>
+            <option value="profesional">Profesional</option>
+            <option value="invitado">Invitado</option>
+          </select>
+          <p id="error-tipo" class="error-campo" aria-live="polite"></p>
+        </div>
+
+        <div class="campo">
+          <label for="modalidad">Modalidad</label>
+          <select id="modalidad" name="modalidad" aria-describedby="error-modalidad">
+            <option value="">Elige una modalidad</option>
+            <option value="presencial">Presencial</option>
+            <option value="online">Online</option>
+          </select>
+          <p id="error-modalidad" class="error-campo" aria-live="polite"></p>
+        </div>
+
+        <div class="campo">
+          <label for="experiencia">Experiencia (0 a 10, admite decimales con punto)</label>
+          <input id="experiencia" name="experiencia" type="text" inputmode="decimal"
+                 aria-describedby="error-experiencia">
+          <p id="error-experiencia" class="error-campo" aria-live="polite"></p>
+        </div>
+
+        <button type="submit">Dar de alta</button>
+      </form>
+      <p id="mensaje-alta" class="mensaje" role="status"></p>
+    </section>
+
+    <!-- ========== LISTADO ========== -->
+    <section class="bloque bloque-ancho" aria-labelledby="titulo-listado">
+      <h2 id="titulo-listado">Participantes</h2>
+
+      <div class="filtros">
+        <div class="campo">
+          <label for="busqueda">Buscar por nombre</label>
+          <input id="busqueda" type="search" placeholder="Ejemplo: ana">
+        </div>
+        <div class="campo">
+          <label for="filtro-modalidad">Filtrar por modalidad</label>
+          <select id="filtro-modalidad">
+            <option value="todas">Todas</option>
+            <option value="presencial">Presencial</option>
+            <option value="online">Online</option>
+          </select>
+        </div>
+      </div>
+
+      <p id="mensaje-lista" class="mensaje" role="status"></p>
+      <div id="lista-participantes" class="lista-tarjetas" aria-label="Tarjetas de participantes"></div>
+    </section>
+
+    <!-- ========== ESTADÍSTICAS ========== -->
+    <section class="bloque" id="estadisticas" aria-labelledby="titulo-estadisticas">
+      <h2 id="titulo-estadisticas">Estadísticas</h2>
+      <p class="nota">Calculadas sobre todos los participantes, aunque el listado esté filtrado.</p>
+      <dl class="datos-estadisticas">
+        <dt>Total de participantes</dt><dd id="est-total"></dd>
+        <dt>Menores de edad</dt><dd id="est-menores"></dd>
+        <dt>Mayores de edad</dt><dd id="est-mayores"></dd>
+        <dt>Edad media</dt><dd id="est-edad-media"></dd>
+        <dt>Edad mínima</dt><dd id="est-edad-minima"></dd>
+        <dt>Edad máxima</dt><dd id="est-edad-maxima"></dd>
+        <dt>Presenciales</dt><dd id="est-presencial"></dd>
+        <dt>Online</dt><dd id="est-online"></dd>
+        <dt>Estudiantes</dt><dd id="est-estudiante"></dd>
+        <dt>Profesionales</dt><dd id="est-profesional"></dd>
+        <dt>Invitados</dt><dd id="est-invitado"></dd>
+        <dt>Experiencia media presencial</dt><dd id="est-experiencia"></dd>
+        <dt>Primer menor de edad</dt><dd id="est-primer-menor"></dd>
+      </dl>
+    </section>
+
+    <!-- ========== PANEL IFRAME ========== -->
+    <section class="bloque" aria-labelledby="titulo-panel">
+      <h2 id="titulo-panel">Panel del evento</h2>
+      <!-- El src se asigna desde app.js después de instalar el receptor de mensajes -->
+      <iframe id="panel-evento" class="marco-panel"
+              title="Panel del evento: total de inscritos, modalidades y última inscripción"></iframe>
+    </section>
+
+    <!-- ========== JSON ========== -->
+    <section class="bloque bloque-ancho" aria-labelledby="titulo-json">
+      <h2 id="titulo-json">Exportar e importar (JSON)</h2>
+      <label for="area-json">Colección en formato JSON</label>
+      <textarea id="area-json" rows="8" spellcheck="false"></textarea>
+      <div class="botones">
+        <button id="boton-exportar" type="button">Exportar colección</button>
+        <button id="boton-importar" type="button">Importar colección</button>
+      </div>
+      <p id="mensaje-json" class="mensaje" role="status"></p>
+    </section>
+
+    <!-- ========== PREFERENCIAS ========== -->
+    <section class="bloque" aria-labelledby="titulo-preferencias">
+      <h2 id="titulo-preferencias">Preferencias</h2>
+      <form id="form-preferencias">
+        <div class="campo">
+          <label for="pref-tema">Tema</label>
+          <select id="pref-tema">
+            <option value="claro">Claro</option>
+            <option value="oscuro">Oscuro</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="pref-tamano">Tamaño de letra</label>
+          <select id="pref-tamano">
+            <option value="normal">Normal</option>
+            <option value="grande">Grande</option>
+          </select>
+        </div>
+        <div class="botones">
+          <button type="submit">Guardar preferencias</button>
+          <button id="boton-restablecer" type="button">Restablecer</button>
+        </div>
+      </form>
+      <p id="estado-preferencias" class="mensaje" role="status"></p>
+    </section>
+
+    <!-- ========== AYUDA ========== -->
+    <section class="bloque" aria-labelledby="titulo-ayuda">
+      <h2 id="titulo-ayuda">Ayuda</h2>
+      <div class="botones">
+        <button id="boton-abrir-ayuda" type="button">Abrir ayuda</button>
+        <button id="boton-cerrar-ayuda" type="button">Cerrar ayuda</button>
+      </div>
+      <p id="estado-ayuda" class="mensaje" role="status"></p>
+    </section>
+
+  </main>
+</body>
+</html>
