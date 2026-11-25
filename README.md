@@ -194,5 +194,5 @@ Un origen es esquema + host + puerto. La política del mismo origen impide que u
 
 ## 6. Uso de la inteligencia artificial
 
-- Enlace al chat utilizado: `PEGAR AQUÍ EL ENLACE`
+- Enlace al chat utilizado: `(https://share.gemini.google/nn6BCZyZJ1pM)`
 
